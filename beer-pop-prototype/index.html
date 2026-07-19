@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BEER POP MAKER</title>
+  <meta name="description" content="ビール缶から売り場用POPを作り、A4で印刷できる試作アプリ">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="app-header">
+    <div>
+      <p class="eyebrow">CEDAR MOUNTAIN SHOP</p>
+      <h1>BEER POP<br>MAKER <span>β</span></h1>
+    </div>
+    <p class="header-note">缶を読み取る。<br>ことばを整える。<br>そのまま印刷する。</p>
+  </header>
+
+  <main>
+    <section class="editor" aria-labelledby="editor-title">
+      <div class="section-heading">
+        <span>01</span>
+        <div><p>MAKE A POP</p><h2 id="editor-title">商品情報を入力</h2></div>
+      </div>
+
+      <div class="scan-panel">
+        <input type="file" id="canPhoto" accept="image/*" capture="environment" hidden>
+        <label for="canPhoto" class="scan-button">
+          <span class="scan-icon">◎</span>
+          <span><b>缶を撮影・選択</b><small>ラベルから商品情報を読み取ります（試作）</small></span>
+        </label>
+        <div id="scanStatus" class="scan-status">または、下のフォームに直接入力</div>
+      </div>
+
+      <form id="popForm">
+        <div class="field field-wide">
+          <label for="productName">商品名</label>
+          <input id="productName" value="Hazy Little Thing" required>
+        </div>
+        <div class="field">
+          <label for="brewery">ブルワリー</label>
+          <input id="brewery" value="Sierra Nevada">
+        </div>
+        <div class="field">
+          <label for="origin">産地</label>
+          <input id="origin" value="California, USA">
+        </div>
+        <div class="field">
+          <label for="style">スタイル</label>
+          <select id="style">
+            <option>Hazy IPA</option><option>IPA</option><option>Pale Ale</option>
+            <option>Lager</option><option>White Ale</option><option>Stout</option><option>Sour</option>
+          </select>
+        </div>
+        <div class="field small-field">
+          <label for="abv">ABV</label>
+          <div class="input-suffix"><input id="abv" value="6.7" inputmode="decimal"><span>%</span></div>
+        </div>
+        <div class="field small-field">
+          <label for="price">価格</label>
+          <div class="input-suffix"><span>¥</span><input id="price" value="850" inputmode="numeric"></div>
+        </div>
+        <div class="field field-wide description-field">
+          <div class="label-row"><label for="description">商品説明</label><span id="charCount">0 / 120</span></div>
+          <textarea id="description" maxlength="140" rows="5"></textarea>
+          <button type="button" id="generateButton" class="generate-button"><span>✦</span> 説明文を生成</button>
+        </div>
+      </form>
+    </section>
+
+    <section class="preview-section" aria-labelledby="preview-title">
+      <div class="section-heading light">
+        <span>02</span>
+        <div><p>PREVIEW</p><h2 id="preview-title">仕上がりを確認</h2></div>
+      </div>
+      <div class="preview-stage">
+        <article id="mainPreview" class="beer-card" aria-label="商品POPプレビュー"></article>
+        <p>実寸 60 × 45 mm</p>
+      </div>
+      <div class="preview-actions">
+        <button type="button" id="addButton" class="primary-button">このPOPをシートに追加 <span>→</span></button>
+        <button type="button" id="clearButton" class="text-button">シートを空にする</button>
+      </div>
+    </section>
+
+    <section class="sheet-section" aria-labelledby="sheet-title">
+      <div class="sheet-toolbar">
+        <div class="section-heading">
+          <span>03</span>
+          <div><p>PRINT SHEET</p><h2 id="sheet-title">A4印刷シート</h2></div>
+        </div>
+        <div class="sheet-actions">
+          <p><b id="slotCount">0</b> / 18 枠</p>
+          <button type="button" id="printButton" class="print-button">A4で印刷 / PDF保存</button>
+        </div>
+      </div>
+      <p class="sheet-help">POPを選ぶと、その枠から削除できます。印刷画面では用紙サイズをA4・倍率100%に設定してください。</p>
+      <div class="sheet-scroll">
+        <div id="printSheet" class="print-sheet" aria-label="A4 POPシート"></div>
+      </div>
+    </section>
+  </main>
+
+  <template id="emptySlotTemplate">
+    <button class="empty-slot" type="button"><span>+</span><small>EMPTY</small></button>
+  </template>
+  <script src="script.js"></script>
+</body>
+</html>
