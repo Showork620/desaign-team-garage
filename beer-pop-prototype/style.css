@@ -1,0 +1,108 @@
+:root { --green:#70bf27; --ink:#162018; --paper:#f4f1e8; --cream:#fffdf6; --line:#c9cec5; }
+* { box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body { margin:0; color:var(--ink); background:var(--paper); font-family:"Helvetica Neue","Noto Sans JP",Arial,sans-serif; }
+button,input,select,textarea { font:inherit; }
+button { cursor:pointer; }
+.app-header { min-height:300px; padding:48px clamp(24px,6vw,88px); display:flex; align-items:flex-end; justify-content:space-between; color:white; background:var(--ink); border-bottom:10px solid var(--green); }
+.eyebrow,.section-heading p { margin:0 0 10px; font-size:11px; font-weight:800; letter-spacing:.18em; }
+h1 { margin:0; font-size:clamp(54px,9vw,118px); line-height:.78; letter-spacing:-.075em; }
+h1 span { display:inline-block; color:var(--green); font-size:.28em; letter-spacing:0; transform:translateY(-1.8em); }
+.header-note { margin:0; padding-left:24px; border-left:1px solid #617066; font-size:13px; line-height:1.8; letter-spacing:.08em; }
+main { display:grid; grid-template-columns:minmax(420px,1fr) minmax(420px,1fr); }
+.editor,.preview-section { padding:54px clamp(24px,5vw,72px) 70px; }
+.editor { background:var(--cream); }
+.preview-section { color:white; background:#243128; }
+.section-heading { display:flex; align-items:flex-start; gap:18px; margin-bottom:30px; }
+.section-heading>span { display:grid; place-items:center; width:34px; height:34px; color:white; background:var(--green); border-radius:50%; font-size:12px; font-weight:800; }
+.section-heading h2 { margin:0; font-size:25px; letter-spacing:-.03em; }
+.section-heading.light>span { color:var(--ink); }
+.scan-panel { margin-bottom:26px; padding:8px; border:1px solid var(--line); background:white; }
+.scan-button { min-height:94px; padding:18px; display:flex; align-items:center; gap:18px; border:1px dashed #91a091; cursor:pointer; transition:.2s; }
+.scan-button:hover { border-color:var(--green); background:#f7fcec; }
+.scan-icon { display:grid; place-items:center; width:48px; height:48px; flex:0 0 auto; color:white; background:var(--green); border-radius:50%; font-size:26px; }
+.scan-button b,.scan-button small { display:block; }
+.scan-button b { margin-bottom:5px; font-size:15px; }
+.scan-button small,.scan-status { color:#687068; font-size:11px; }
+.scan-status { padding:8px 10px 2px; }
+form { display:grid; grid-template-columns:1fr 1fr; gap:18px 14px; }
+.field { min-width:0; }
+.field-wide { grid-column:1/-1; }
+.field label,.label-row span { display:block; margin-bottom:7px; font-size:11px; font-weight:800; letter-spacing:.06em; }
+.label-row { display:flex; justify-content:space-between; }
+.label-row span { color:#7a817b; font-weight:500; }
+input,select,textarea { width:100%; border:1px solid var(--line); border-radius:0; color:var(--ink); background:white; outline:none; }
+input,select { height:46px; padding:0 12px; }
+textarea { padding:12px; line-height:1.7; resize:vertical; }
+input:focus,select:focus,textarea:focus { border-color:var(--green); box-shadow:0 0 0 2px #70bf2722; }
+.input-suffix { display:flex; align-items:center; border:1px solid var(--line); background:white; }
+.input-suffix input { border:0; }
+.input-suffix span { padding:0 10px; color:#667066; }
+.generate-button { width:100%; margin-top:8px; padding:13px; border:1px solid var(--ink); color:white; background:var(--ink); font-size:12px; font-weight:800; letter-spacing:.06em; }
+.generate-button span { color:var(--green); }
+.generate-button.is-generating { opacity:.6; }
+.preview-stage { min-height:390px; display:flex; flex-direction:column; align-items:center; justify-content:center; background:radial-gradient(circle,#3a493d 1px,transparent 1px); background-size:16px 16px; border:1px solid #526156; }
+.preview-stage>p { margin:20px 0 0; color:#aab5ad; font-size:10px; letter-spacing:.15em; }
+.beer-card { position:relative; width:360px; aspect-ratio:4/3; overflow:hidden; color:#111; background:#fff; border:1px solid #111; box-shadow:0 18px 40px #0005; }
+.card-meta { height:33%; padding:10px 12px 8px; color:#111; background:var(--green); }
+.card-name { height:56%; padding:4px 8px; display:flex; align-items:center; background:white; font-size:17px; font-weight:900; line-height:1; text-transform:uppercase; overflow:hidden; }
+.card-facts { height:38%; display:grid; grid-template-columns:1.55fr 1fr; gap:5px; margin-top:5px; }
+.card-facts>div { padding:3px 7px; display:flex; align-items:center; background:white; font-size:8px; font-weight:800; overflow:hidden; white-space:nowrap; }
+.card-body { position:relative; height:67%; padding:10px 12px 8px; background:#fff; overflow:hidden; }
+.card-body::before { content:""; position:absolute; inset:0; background:url("assets/card-art.png") center bottom/cover no-repeat; opacity:.22; }
+.card-brewery,.card-description,.card-price { position:relative; z-index:1; }
+.card-brewery { display:flex; justify-content:space-between; gap:8px; font-size:8px; font-weight:800; text-transform:uppercase; }
+.card-description { margin:8px 0 0; max-width:91%; font-size:8.2px; font-weight:600; line-height:1.48; letter-spacing:.015em; }
+.card-price { position:absolute; right:10px; bottom:7px; padding:2px 5px; color:white; background:var(--ink); font-size:13px; font-weight:900; }
+.preview-actions { margin-top:16px; display:flex; align-items:center; justify-content:space-between; gap:18px; }
+.primary-button,.print-button { border:0; color:#142015; background:var(--green); font-size:12px; font-weight:900; }
+.primary-button { flex:1; padding:16px 20px; text-align:left; display:flex; justify-content:space-between; }
+.text-button { padding:10px 0; border:0; border-bottom:1px solid #748078; color:#cbd2cc; background:transparent; font-size:11px; }
+.sheet-section { grid-column:1/-1; padding:60px clamp(24px,6vw,88px) 100px; background:#e6e7e0; }
+.sheet-toolbar { display:flex; align-items:flex-start; justify-content:space-between; gap:30px; }
+.sheet-actions { display:flex; align-items:center; gap:22px; }
+.sheet-actions p { margin:0; font-size:12px; }
+.sheet-actions b { font-size:24px; }
+.print-button { padding:15px 20px; }
+.sheet-help { margin:-16px 0 24px 52px; color:#656b66; font-size:11px; }
+.sheet-scroll { overflow:auto; padding:24px; background:#cfd2ca; }
+.print-sheet { width:210mm; height:297mm; padding:6mm 24mm 21mm 6mm; display:grid; grid-template-columns:repeat(3,60mm); grid-template-rows:repeat(6,45mm); background:white; box-shadow:0 8px 28px #26332833; transform-origin:top left; }
+.print-sheet .beer-card,.empty-slot { width:60mm; height:45mm; box-shadow:none; }
+.print-sheet .beer-card { cursor:pointer; }
+.print-sheet .card-meta { padding:1.7mm 2mm 1.2mm; }
+.print-sheet .card-name { padding:.5mm 1.2mm; font-size:8pt; }
+.print-sheet .card-facts { gap:.7mm; margin-top:.7mm; }
+.print-sheet .card-facts>div { padding:.4mm 1mm; font-size:4.8pt; }
+.print-sheet .card-body { padding:1.5mm 2mm 1.2mm; }
+.print-sheet .card-brewery { font-size:4.5pt; }
+.print-sheet .card-description { margin-top:1.3mm; font-size:4.6pt; line-height:1.42; }
+.print-sheet .card-price { right:1.5mm; bottom:1.2mm; padding:.3mm .8mm; font-size:7pt; }
+.empty-slot { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:3px; border:1px dashed #ccd0ca; color:#b8beb8; background:#fff; }
+.empty-slot span { font-size:20px; font-weight:200; }
+.empty-slot small { font-size:7px; letter-spacing:.15em; }
+@media(max-width:900px) {
+  .app-header { min-height:240px; }
+  main { grid-template-columns:1fr; }
+  .sheet-section { grid-column:1; }
+  .beer-card { width:min(360px,88vw); }
+  .sheet-toolbar { display:block; }
+  .sheet-actions { justify-content:space-between; margin-bottom:18px; }
+  .sheet-help { margin:0 0 18px; }
+}
+@media(max-width:560px) {
+  .header-note { display:none; }
+  .editor,.preview-section,.sheet-section { padding-left:18px; padding-right:18px; }
+  form { grid-template-columns:1fr; }
+  .field,.field-wide { grid-column:1; }
+  .small-field { width:100%; }
+  .preview-stage { min-height:340px; }
+  .sheet-scroll { padding:10px; }
+}
+@media print {
+  @page { size:A4 portrait; margin:0; }
+  body { background:white; }
+  .app-header,.editor,.preview-section,.sheet-toolbar,.sheet-help { display:none !important; }
+  main,.sheet-section,.sheet-scroll { display:block; margin:0; padding:0; background:white; overflow:visible; }
+  .print-sheet { width:210mm; height:297mm; margin:0; padding:6mm 24mm 21mm 6mm; box-shadow:none; }
+  .empty-slot { border-color:transparent; color:transparent; }
+}
