@@ -1,0 +1,586 @@
+/* ============================================================
+   ロードマップ（トップの Roadmap セクション）と特設ページのスタイル
+   index.css のあとに読み込まれる想定
+   ============================================================ */
+
+.roadmap-section,
+.lesson-page {
+  --ink: #0a0a0a;
+  --ink-soft: #55554f;
+  --rule: #aaa;
+  --rule-soft: rgba(10, 10, 10, 0.14);
+}
+
+/* ---------- 進捗バー（トップ・特設ページ共通） ---------- */
+.progress {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.progress-track {
+  flex: 1;
+  height: 6px;
+  background: var(--rule-soft);
+  overflow: hidden;
+}
+.progress-fill {
+  display: block;
+  height: 100%;
+  background: var(--ink);
+  transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.progress-label {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin: 0;
+  white-space: nowrap;
+  font-family: var(--latin);
+}
+.progress-label b {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+.progress-label span {
+  font-size: 11px;
+  color: var(--ink-soft);
+}
+.progress-sm .progress-track {
+  height: 4px;
+}
+.progress-sm .progress-label b {
+  font-size: 12px;
+}
+.progress-lg .progress-track {
+  height: 10px;
+}
+.progress-lg .progress-label b {
+  font-size: 20px;
+}
+
+/* ---------- 全体進捗（黒い帯） ---------- */
+.roadmap-total {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 30px;
+  margin-bottom: 40px;
+  padding: 26px 30px;
+  background: var(--ink);
+  color: #f4f4ef;
+}
+.roadmap-total-label {
+  margin: 0;
+  font: 700 11px var(--latin);
+  letter-spacing: 0.18em;
+  color: var(--accent);
+}
+.roadmap-total .progress-track {
+  background: rgba(255, 255, 255, 0.2);
+}
+.roadmap-total .progress-fill {
+  background: var(--accent);
+}
+.roadmap-total .progress-label span {
+  color: #a4a49e;
+}
+.roadmap-reset {
+  padding: 10px 15px;
+  border: 1px solid rgba(255, 255, 255, 0.32);
+  background: none;
+  color: inherit;
+  font: 500 10px var(--latin);
+  letter-spacing: 0.14em;
+  cursor: pointer;
+  transition: background 0.25s, color 0.25s;
+}
+.roadmap-reset:hover {
+  background: #f4f4ef;
+  color: var(--ink);
+}
+
+/* ---------- カテゴリ行（アコーディオン） ---------- */
+.roadmap-list article.roadmap-row {
+  display: block;
+  min-height: 0;
+  padding: 0;
+  border-bottom: 1px solid var(--rule);
+}
+.roadmap-list article.roadmap-row:hover {
+  padding-left: 0;
+  background: transparent;
+}
+
+.roadmap-row-head {
+  display: grid;
+  grid-template-columns: 65px 1fr 210px 40px;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+  min-height: 128px;
+  padding: 20px 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: padding 0.25s, background 0.25s;
+}
+.roadmap-row-head:hover {
+  padding-left: 18px;
+  background: var(--accent);
+}
+.roadmap-row-title h3 {
+  margin: 0;
+}
+.roadmap-row-title em {
+  display: block;
+  margin-top: 10px;
+  font-style: normal;
+  font-size: 14px;
+}
+.roadmap-row-head i {
+  justify-self: center;
+  font-style: normal;
+  font-size: 26px;
+  line-height: 1;
+}
+.roadmap-row.is-complete .roadmap-row-title h3::after {
+  content: "✓";
+  margin-left: 14px;
+  font-size: 0.42em;
+  vertical-align: middle;
+  background: var(--ink);
+  color: var(--accent);
+  padding: 4px 8px;
+}
+
+/* ---------- 開いたときの中身 ---------- */
+.roadmap-panel {
+  padding: 0 0 44px 65px;
+}
+.check-items {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--rule-soft);
+}
+.check-item {
+  border-bottom: 1px solid var(--rule-soft);
+}
+.check-item label {
+  position: relative;
+  display: grid;
+  grid-template-columns: 22px 32px 1fr;
+  align-items: center;
+  gap: 14px;
+  padding: 15px 4px;
+  cursor: pointer;
+}
+.check-item input,
+.lesson-check input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+.check-box {
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  border: 1px solid var(--ink);
+  font-size: 13px;
+  color: transparent;
+  transition: background 0.2s, color 0.2s;
+}
+.check-item input:checked + .check-box,
+.lesson-check input:checked + .check-box {
+  background: var(--accent);
+  color: var(--ink);
+}
+.check-item input:focus-visible + .check-box,
+.lesson-check input:focus-visible + .check-box {
+  outline: 2px solid var(--ink);
+  outline-offset: 3px;
+}
+.check-num {
+  font: 500 11px var(--latin);
+  color: var(--ink-soft);
+}
+.check-title {
+  font-size: 14px;
+  line-height: 1.7;
+}
+.check-item.is-done .check-title {
+  color: var(--ink-soft);
+  text-decoration: line-through;
+}
+
+.roadmap-more {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 26px;
+  padding: 14px 22px;
+  background: var(--ink);
+  color: #f4f4ef;
+  font: 500 12px var(--latin);
+  letter-spacing: 0.1em;
+  transition: background 0.25s, color 0.25s;
+}
+.roadmap-more:hover {
+  background: var(--accent);
+  color: var(--ink);
+}
+.roadmap-more i {
+  font-style: normal;
+}
+.roadmap-more-wip {
+  padding: 3px 8px;
+  border: 1px solid currentColor;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+}
+
+/* ============================================================
+   特設ページ
+   ============================================================ */
+.lesson-page {
+  min-height: 100svh;
+  padding: 130px 5vw 110px;
+  background: #ecece5;
+  color: var(--ink);
+}
+.lesson-inner {
+  max-width: 900px;
+  margin: 0 auto;
+}
+.lesson-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid var(--ink);
+  font: 500 11px var(--latin);
+  letter-spacing: 0.16em;
+}
+.lesson-back i {
+  font-style: normal;
+}
+
+.lesson-hero {
+  margin: 48px 0 76px;
+}
+.lesson-meta {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 0 0 24px;
+  font: 700 11px var(--latin);
+  letter-spacing: 0.18em;
+}
+.lesson-num {
+  padding: 4px 9px;
+  background: var(--ink);
+  color: #ecece5;
+}
+.lesson-en {
+  color: var(--ink-soft);
+}
+.lesson-title {
+  margin: 0;
+  font-size: clamp(36px, 6vw, 80px);
+  font-weight: 900;
+  line-height: 1.04;
+  letter-spacing: -0.06em;
+}
+.lesson-desc {
+  margin: 22px 0 0;
+  color: var(--ink-soft);
+}
+.lesson-progress {
+  margin-top: 44px;
+  padding: 24px 28px;
+  background: var(--ink);
+  color: #f4f4ef;
+}
+.lesson-progress .progress-track {
+  background: rgba(255, 255, 255, 0.2);
+}
+.lesson-progress .progress-fill {
+  background: var(--accent);
+}
+.lesson-progress .progress-label span {
+  color: #a4a49e;
+}
+
+.lesson-wip,
+.lesson-empty {
+  margin: 0 0 30px;
+  padding: 16px 20px;
+  background: rgba(10, 10, 10, 0.05);
+  font-size: 14px;
+  color: var(--ink-soft);
+}
+.lesson-empty {
+  margin: 26px 0 0 74px;
+}
+
+/* ---------- 項目 ---------- */
+.lesson-list {
+  border-top: 1px solid var(--rule);
+}
+.lesson-item {
+  padding: 54px 0 62px;
+  border-bottom: 1px solid var(--rule);
+}
+.lesson-item-head {
+  display: grid;
+  grid-template-columns: 22px 32px 1fr;
+  align-items: center;
+  gap: 20px;
+}
+.lesson-check {
+  position: relative;
+  display: grid;
+  cursor: pointer;
+}
+.lesson-item-num {
+  font: 700 12px var(--latin);
+  color: var(--ink-soft);
+}
+.lesson-item h2 {
+  margin: 0;
+  font-size: clamp(20px, 2.6vw, 30px);
+  line-height: 1.45;
+  letter-spacing: -0.03em;
+}
+.lesson-item.is-done h2 {
+  color: var(--ink-soft);
+}
+
+.lesson-body {
+  margin-top: 36px;
+  padding-left: 74px;
+}
+.lesson-block {
+  margin-bottom: 34px;
+}
+.lesson-block:last-child {
+  margin-bottom: 0;
+}
+.lesson-block h3 {
+  display: inline-block;
+  margin: 0 0 14px;
+  padding-bottom: 4px;
+  border-bottom: 2px solid var(--accent);
+  font: 700 11px var(--latin);
+  letter-spacing: 0.16em;
+}
+.lesson-block p {
+  margin: 0;
+  font-size: 15px;
+  line-height: 2;
+  color: #33332f;
+}
+.lesson-caption {
+  margin-bottom: 12px !important;
+  font: 500 12px var(--latin) !important;
+  letter-spacing: 0.04em;
+  color: var(--ink-soft) !important;
+}
+.lesson-code {
+  margin: 0;
+  padding: 24px 26px;
+  background: #0d0d0d;
+  color: #f4f4ef;
+  /* 横に長いコードだけ横スクロール。縦は hidden にしないと、
+     コードの上でマウスホイールが効かなくなる */
+  overflow-x: auto;
+  overflow-y: hidden;
+  font-size: 13px;
+  line-height: 1.9;
+  tab-size: 2;
+}
+.lesson-code code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+
+.lesson-practice {
+  margin: 0;
+  padding-left: 20px;
+}
+.lesson-practice li {
+  margin-bottom: 10px;
+  font-size: 15px;
+  line-height: 1.9;
+  color: #33332f;
+}
+
+.lesson-pitfalls {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.lesson-pitfalls li {
+  margin-bottom: 12px;
+  padding: 18px 20px;
+  border-left: 3px solid var(--accent);
+  background: rgba(10, 10, 10, 0.05);
+}
+.lesson-pitfalls b {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+.lesson-pitfalls span {
+  font-size: 14px;
+  line-height: 1.9;
+  color: var(--ink-soft);
+}
+
+.lesson-links {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.lesson-links li {
+  margin-bottom: 8px;
+}
+.lesson-links a {
+  padding-bottom: 3px;
+  border-bottom: 1px solid rgba(10, 10, 10, 0.4);
+  font-size: 14px;
+}
+.lesson-links a:hover {
+  background: var(--accent);
+  border-color: transparent;
+}
+.lesson-links i {
+  font-style: normal;
+}
+
+/* ---------- 前後カテゴリ ---------- */
+.lesson-nav {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-top: 74px;
+}
+.lesson-nav-item {
+  padding: 28px;
+  border: 1px solid var(--rule);
+  transition: background 0.25s;
+}
+.lesson-nav-item:hover {
+  background: var(--accent);
+}
+.lesson-nav-item.is-next {
+  text-align: right;
+}
+.lesson-nav-item span {
+  display: block;
+  margin-bottom: 10px;
+  font: 500 10px var(--latin);
+  letter-spacing: 0.16em;
+  color: var(--ink-soft);
+}
+.lesson-nav-item b {
+  font: 700 clamp(20px, 3vw, 32px) var(--latin);
+  letter-spacing: -0.04em;
+}
+
+.lesson-notfound {
+  padding-top: 60px;
+}
+.lesson-notfound h1 {
+  margin: 0 0 30px;
+  font-size: clamp(28px, 5vw, 52px);
+  letter-spacing: -0.05em;
+}
+
+/* ---------- スマホ ---------- */
+@media (max-width: 800px) {
+  .roadmap-total {
+    grid-template-columns: 1fr;
+    gap: 18px;
+    padding: 22px 20px;
+  }
+  .roadmap-reset {
+    justify-self: start;
+  }
+  .roadmap-row-head {
+    grid-template-columns: 42px 1fr 30px;
+    gap: 12px;
+    min-height: 0;
+    padding: 25px 0;
+  }
+  .roadmap-row .num {
+    grid-area: 1 / 1;
+  }
+  .roadmap-row-title {
+    grid-area: 1 / 2;
+  }
+  .roadmap-row-head i {
+    grid-area: 1 / 3;
+  }
+  .roadmap-row-progress {
+    grid-area: 2 / 2 / 3 / 4;
+    margin-top: 14px;
+  }
+  .roadmap-list .progress-label {
+    grid-column: auto;
+    margin-top: 0;
+  }
+  .roadmap-row-title em {
+    margin-top: 6px;
+  }
+  .roadmap-panel {
+    padding: 0 0 34px;
+  }
+  .check-item label {
+    grid-template-columns: 22px 1fr;
+    align-items: start;
+  }
+  .check-num {
+    display: none;
+  }
+  .roadmap-more {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .lesson-page {
+    padding: 105px 20px 80px;
+  }
+  .lesson-hero {
+    margin: 36px 0 56px;
+  }
+  .lesson-item-head {
+    grid-template-columns: 22px 1fr;
+    gap: 14px;
+    align-items: start;
+  }
+  .lesson-item-num {
+    display: none;
+  }
+  .lesson-body,
+  .lesson-empty {
+    padding-left: 0;
+    margin-left: 0;
+  }
+  .lesson-code {
+    padding: 18px;
+    font-size: 12px;
+  }
+  .lesson-nav {
+    grid-template-columns: 1fr;
+  }
+  .lesson-nav-item.is-next {
+    text-align: left;
+  }
+}

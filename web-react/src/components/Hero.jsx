@@ -1,3 +1,5 @@
+import SectionLink from "./SectionLink";
+
 export default function Hero() {
   return (
     <section className="hero">
@@ -20,10 +22,10 @@ export default function Hero() {
         <p className="hero-description">
           HTML / CSS / JavaScript / React の基礎を学びながら、実際に動くアプリを作っていく、デザイナーのためのWeb制作ログ。
         </p>
-        <a href="#about" className="scroll-link">
+        <SectionLink section="about" className="scroll-link">
           <span>SCROLL</span>
           <i>↓</i>
-        </a>
+        </SectionLink>
       </div>
       <div className="hero-code" aria-hidden="true">
         &lt;BUILD

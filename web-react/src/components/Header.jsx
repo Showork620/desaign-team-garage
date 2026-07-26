@@ -1,14 +1,16 @@
+import SectionLink from "./SectionLink";
+
 export default function Header() {
   return (
     <header className="site-header">
-      <a href="#top" className="logo">
+      <SectionLink section="top" className="logo">
         <span>WEB</span> BUILD LOG
-      </a>
+      </SectionLink>
       <nav className="nav" aria-label="メインナビゲーション">
-        <a href="#about">About</a>
-        <a href="#roadmap">Roadmap</a>
-        <a href="#works">Works</a>
-        <a href="#log">Log</a>
+        <SectionLink section="about">About</SectionLink>
+        <SectionLink section="roadmap">Roadmap</SectionLink>
+        <SectionLink section="works">Works</SectionLink>
+        <SectionLink section="log">Log</SectionLink>
       </nav>
     </header>
   );

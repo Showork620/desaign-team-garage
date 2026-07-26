@@ -1,30 +1,19 @@
+import { Route, Routes } from "react-router-dom";
 import Header from "./components/Header";
-import Hero from "./components/Hero";
-import About from "./components/About";
-import Roadmap from "./components/Roadmap";
-import Works from "./components/Works";
-import ProcessLog from "./components/ProcessLog";
-import AiSection from "./components/AiSection";
-import FinalGoal from "./components/FinalGoal";
 import Footer from "./components/Footer";
-import useReveal from "./useReveal";
+import HomePage from "./pages/HomePage";
+import CategoryPage from "./pages/CategoryPage";
 
 export default function App() {
-  useReveal();
-
   return (
     <>
       <div className="noise" aria-hidden="true" />
       <Header />
-      <main id="top">
-        <Hero />
-        <About />
-        <Roadmap />
-        <Works />
-        <ProcessLog />
-        <AiSection />
-        <FinalGoal />
-      </main>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/roadmap/:categoryId" element={<CategoryPage />} />
+        <Route path="*" element={<CategoryPage />} />
+      </Routes>
       <Footer />
     </>
   );
