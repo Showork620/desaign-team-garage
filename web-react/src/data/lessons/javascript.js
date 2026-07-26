@@ -20,6 +20,22 @@ console.log(siteName, count); // → WEB BUILD LOG 1`,
       "const で作った変数にあとから別の値を入れようとすると、どんなエラーが出るか確かめる。",
       "ブラウザで F12（開発者ツール）→ Console タブを開くと、その場で試せます。",
     ],
+    playgroundExamples: [
+      {
+        label: "名前を表示",
+        code: `const name = "しほ";
+
+console.log(name);`,
+      },
+      {
+        label: "constのエラー",
+        code: `const siteName = "WEB BUILD LOG";
+
+siteName = "NEW NAME";
+
+console.log(siteName);`,
+      },
+    ],
     pitfalls: [
       {
         title: "const と let、どちらを使う？",
@@ -54,6 +70,21 @@ steps.push("オブジェクト"); // 末尾に1つ追加`,
       "好きな色を3つ入れた配列 colors を作り、2番目（colors[1]）を表示してみる。",
       "colors.length を表示して、個数が数えられることを確かめる。",
       "存在しない番号（colors[10]）を表示すると何が返るか見てみる。",
+    ],
+    playgroundExamples: [
+      {
+        label: "色を取り出す",
+        code: `const colors = ["red", "blue", "green"];
+
+console.log(colors[1]);
+console.log(colors.length);`,
+      },
+      {
+        label: "ない番号",
+        code: `const colors = ["red", "blue", "green"];
+
+console.log(colors[10]);`,
+      },
     ],
     pitfalls: [
       {
@@ -94,6 +125,26 @@ if (done === total) {
       "score という変数を作り、80以上なら「合格」、それ未満なら「もう少し」と表示する。",
       "> < >= <= === !== を1つずつ試して、結果がどう変わるか確かめる。",
     ],
+    playgroundExamples: [
+      {
+        label: "合格判定",
+        code: `const score = 82;
+
+if (score >= 80) {
+  console.log("合格");
+} else {
+  console.log("もう少し");
+}`,
+      },
+      {
+        label: "比較を試す",
+        code: `const current = 3;
+const target = 5;
+
+console.log(current < target);
+console.log(current === target);`,
+      },
+    ],
     pitfalls: [
       {
         title: "= と === はまったく別物",
@@ -132,6 +183,22 @@ steps.forEach((step) => {
     practice: [
       "for を使って 1 から 10 までを順番に表示する。",
       "前の項目で作った colors 配列を forEach で全部表示する。",
+    ],
+    playgroundExamples: [
+      {
+        label: "1から10",
+        code: `for (let i = 1; i <= 10; i++) {
+  console.log(i);
+}`,
+      },
+      {
+        label: "色を全部表示",
+        code: `const colors = ["red", "blue", "green"];
+
+colors.forEach((color) => {
+  console.log(color);
+});`,
+      },
     ],
     pitfalls: [
       {
@@ -175,6 +242,24 @@ const double = (n) => n * 2;`,
       "名前を受け取って「こんにちは、◯◯さん」と返す関数 greet を作る。",
       "上の progressText をそのまま書き写して、数字を変えて何度か呼び出してみる。",
       "return を消すとどうなるか確かめる（undefined が返ります）。",
+    ],
+    playgroundExamples: [
+      {
+        label: "greetを作る",
+        code: `function greet(name) {
+  return "こんにちは、" + name + "さん";
+}
+
+console.log(greet("しほ"));`,
+      },
+      {
+        label: "returnなし",
+        code: `function greet(name) {
+  "こんにちは、" + name + "さん";
+}
+
+console.log(greet("しほ"));`,
+      },
     ],
     pitfalls: [
       {
