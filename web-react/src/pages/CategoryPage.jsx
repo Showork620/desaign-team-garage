@@ -4,6 +4,7 @@ import { ROADMAP, findCategory, findCategoryIndex } from "../data/roadmap";
 import { getLesson, getLessons } from "../data/lessons";
 import { useProgress } from "../progress/progressContext";
 import ProgressBar from "../components/ProgressBar";
+import LessonContent from "../components/LessonContent";
 
 export default function CategoryPage() {
   const { categoryId } = useParams();
@@ -84,63 +85,15 @@ export default function CategoryPage() {
                 </div>
 
                 {lesson ? (
-                  <div className="lesson-body">
-                    <Block label="これは何？">
-                      <p>{lesson.what}</p>
-                    </Block>
-
-                    <Block label="なぜ必要？">
-                      <p>{lesson.why}</p>
-                    </Block>
-
-                    {lesson.code && (
-                      <Block label="コードで見る">
-                        {lesson.code.caption && <p className="lesson-caption">{lesson.code.caption}</p>}
-                        <pre className="lesson-code">
-                          <code>{lesson.code.body}</code>
-                        </pre>
-                      </Block>
-                    )}
-
-                    {lesson.practice?.length > 0 && (
-                      <Block label="やってみる">
-                        <ul className="lesson-practice">
-                          {lesson.practice.map((text) => (
-                            <li key={text}>{text}</li>
-                          ))}
-                        </ul>
-                      </Block>
-                    )}
-
-                    {lesson.pitfalls?.length > 0 && (
-                      <Block label="つまずきポイント">
-                        <ul className="lesson-pitfalls">
-                          {lesson.pitfalls.map((pitfall) => (
-                            <li key={pitfall.title}>
-                              <b>{pitfall.title}</b>
-                              <span>{pitfall.body}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      </Block>
-                    )}
-
-                    {lesson.links?.length > 0 && (
-                      <Block label="参考リンク">
-                        <ul className="lesson-links">
-                          {lesson.links.map((link) => (
-                            <li key={link.url}>
-                              <a href={link.url} target="_blank" rel="noreferrer">
-                                {link.label} <i aria-hidden="true">↗</i>
-                              </a>
-                            </li>
-                          ))}
-                        </ul>
-                      </Block>
-                    )}
-                  </div>
+                  <LessonContent lesson={lesson} />
                 ) : (
                   <p className="lesson-empty">解説はこれから書きます。</p>
+                )}
+
+                {lesson && (
+                  <Link to={`/roadmap/${category.id}/${item.id}`} className="lesson-topic-link">
+                    個別ページで実習する <i aria-hidden="true">→</i>
+                  </Link>
                 )}
               </article>
             );
@@ -165,14 +118,5 @@ export default function CategoryPage() {
         </nav>
       </div>
     </main>
-  );
-}
-
-function Block({ label, children }) {
-  return (
-    <section className="lesson-block">
-      <h3>{label}</h3>
-      <div>{children}</div>
-    </section>
   );
 }

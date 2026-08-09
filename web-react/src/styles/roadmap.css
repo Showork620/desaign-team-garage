@@ -329,6 +329,25 @@
 .lesson-empty {
   margin: 26px 0 0 74px;
 }
+.lesson-topic-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  margin: 34px 0 0 74px;
+  padding: 13px 18px;
+  background: var(--ink);
+  color: #f4f4ef;
+  font: 700 11px var(--latin);
+  letter-spacing: 0.12em;
+  transition: background 0.25s, color 0.25s;
+}
+.lesson-topic-link:hover {
+  background: var(--accent);
+  color: var(--ink);
+}
+.lesson-topic-link i {
+  font-style: normal;
+}
 
 /* ---------- 項目 ---------- */
 .lesson-list {
@@ -361,6 +380,23 @@
 }
 .lesson-item.is-done h2 {
   color: var(--ink-soft);
+}
+.lesson-item-detail {
+  padding-top: 56px;
+  border-bottom: 0;
+}
+.lesson-item-detail .lesson-item-head {
+  align-items: start;
+}
+.lesson-item-detail h1 {
+  margin: 0;
+  font-size: clamp(48px, 8vw, 104px);
+  font-weight: 900;
+  line-height: 0.95;
+  letter-spacing: -0.07em;
+}
+.lesson-item-meta {
+  margin-bottom: 22px;
 }
 
 .lesson-body {
@@ -462,6 +498,109 @@
 }
 .lesson-links i {
   font-style: normal;
+}
+
+/* ---------- 実習エリア ---------- */
+.code-playground {
+  border: 1px solid var(--rule);
+  background: rgba(10, 10, 10, 0.04);
+}
+.playground-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 18px 20px;
+  border-bottom: 1px solid var(--rule-soft);
+}
+.playground-head p {
+  margin: 0;
+}
+.playground-head b {
+  color: var(--ink);
+}
+.playground-reset,
+.playground-examples button,
+.playground-run {
+  border: 1px solid var(--ink);
+  background: transparent;
+  color: var(--ink);
+  font: 700 11px var(--latin);
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, opacity 0.2s;
+}
+.playground-reset {
+  flex: 0 0 auto;
+  padding: 10px 13px;
+}
+.playground-examples {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 14px 20px 0;
+}
+.playground-examples button {
+  padding: 9px 11px;
+}
+.playground-reset:hover,
+.playground-examples button:hover,
+.playground-run:hover {
+  background: var(--accent);
+  color: var(--ink);
+}
+.playground-editor {
+  display: block;
+  width: calc(100% - 40px);
+  min-height: 280px;
+  margin: 16px 20px 0;
+  padding: 18px;
+  border: 0;
+  border-radius: 0;
+  resize: vertical;
+  background: #0d0d0d;
+  color: #f4f4ef;
+  font: 13px/1.8 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  tab-size: 2;
+}
+.playground-editor:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 0;
+}
+.playground-actions {
+  padding: 16px 20px 0;
+}
+.playground-run {
+  min-width: 120px;
+  padding: 13px 18px;
+  background: var(--ink);
+  color: #f4f4ef;
+}
+.playground-run:disabled {
+  opacity: 0.58;
+  cursor: wait;
+}
+.playground-output {
+  margin: 16px 20px 20px;
+  padding: 16px 18px;
+  min-height: 72px;
+  background: #f7f7ef;
+  border-left: 4px solid var(--ink);
+}
+.playground-output.is-error {
+  border-left-color: #d13939;
+}
+.playground-output.is-success {
+  border-left-color: var(--accent);
+}
+.playground-output pre {
+  margin: 0 0 6px;
+  white-space: pre-wrap;
+  word-break: break-word;
+  color: var(--ink);
+  font: 13px/1.7 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+.playground-output pre:last-child {
+  margin-bottom: 0;
 }
 
 /* ---------- 前後カテゴリ ---------- */
@@ -569,13 +708,40 @@
     display: none;
   }
   .lesson-body,
-  .lesson-empty {
+  .lesson-empty,
+  .lesson-topic-link {
     padding-left: 0;
     margin-left: 0;
+  }
+  .lesson-topic-link {
+    width: 100%;
+    justify-content: space-between;
   }
   .lesson-code {
     padding: 18px;
     font-size: 12px;
+  }
+  .lesson-item-detail h1 {
+    font-size: clamp(42px, 16vw, 72px);
+  }
+  .playground-head {
+    display: block;
+  }
+  .playground-reset {
+    margin-top: 14px;
+  }
+  .playground-editor {
+    width: calc(100% - 28px);
+    min-height: 240px;
+    margin: 14px 14px 0;
+    font-size: 12px;
+  }
+  .playground-examples,
+  .playground-actions {
+    padding-inline: 14px;
+  }
+  .playground-output {
+    margin: 14px;
   }
   .lesson-nav {
     grid-template-columns: 1fr;
