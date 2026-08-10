@@ -84,7 +84,12 @@ export default function Roadmap() {
                 <div className="roadmap-panel" id={`roadmap-panel-${category.id}`}>
                   <ul className="check-items">
                     {category.items.map((item, index) => (
-                      <CheckItem key={item.id} item={item} index={index} />
+                      <CheckItem
+                        key={item.id}
+                        item={item}
+                        index={index}
+                        categoryId={category.id}
+                      />
                     ))}
                   </ul>
                   <Link to={`/roadmap/${category.id}`} className="roadmap-more">

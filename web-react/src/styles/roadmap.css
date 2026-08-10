@@ -170,13 +170,17 @@
 .check-item {
   border-bottom: 1px solid var(--rule-soft);
 }
-.check-item label {
+.check-item-row {
   position: relative;
   display: grid;
   grid-template-columns: 22px 32px 1fr;
   align-items: center;
   gap: 14px;
   padding: 15px 4px;
+}
+.check-toggle {
+  position: relative;
+  display: grid;
   cursor: pointer;
 }
 .check-item input,
@@ -213,6 +217,18 @@
 .check-title {
   font-size: 14px;
   line-height: 1.7;
+}
+.check-title-link {
+  display: block;
+  padding: 4px 0;
+  transition: color 0.2s, background 0.2s;
+}
+.check-title-link:hover {
+  background: var(--accent);
+}
+.check-title-link:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 4px;
 }
 .check-item.is-done .check-title {
   color: var(--ink-soft);
