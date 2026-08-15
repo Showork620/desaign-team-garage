@@ -693,19 +693,68 @@
   font-size: 13px;
   color: var(--ink-soft);
 }
-.dom-playground-caption {
+.dom-playground-preview-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
   margin: 16px 20px 8px;
+}
+.dom-playground-caption {
+  margin: 0;
   font: 500 12px var(--latin);
   letter-spacing: 0.04em;
   color: var(--ink-soft);
 }
-.dom-playground-frame {
-  display: block;
+.dom-playground-view-toggle {
+  display: flex;
+  gap: 6px;
+}
+.dom-playground-view-toggle button {
+  padding: 6px 11px;
+  border: 1px solid var(--rule);
+  background: transparent;
+  color: var(--ink-soft);
+  font: 700 10px var(--latin);
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+.dom-playground-view-toggle button.is-active {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: #f4f4ef;
+}
+.dom-playground-frame,
+.dom-playground-html {
+  box-sizing: border-box;
   width: calc(100% - 40px);
   height: 200px;
   margin: 0 20px 20px;
   border: 1px solid var(--rule-soft);
+}
+/* [hidden]属性はUAスタイルのdisplay:noneで隠れる想定だが、上のブロックで
+   display を明示すると詳細度が同点になり後勝ちで上書きしてしまうため、
+   表示側だけ明示的にblockにする。 */
+.dom-playground-frame:not([hidden]),
+.dom-playground-html:not([hidden]) {
+  display: block;
+}
+.dom-playground-frame {
   background: #f7f7ef;
+}
+.dom-playground-html {
+  padding: 16px;
+  overflow: auto;
+  background: #0d0d0d;
+  color: #f4f4ef;
+  font-size: 13px;
+  line-height: 1.8;
+  tab-size: 2;
+}
+.dom-playground-html code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  white-space: pre;
 }
 
 /* ---------- 前後カテゴリ ---------- */

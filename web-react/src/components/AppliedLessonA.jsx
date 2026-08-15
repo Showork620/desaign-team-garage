@@ -28,6 +28,15 @@ export default function AppliedLessonA() {
               <pre className="lesson-code">
                 <code>{step.html}</code>
               </pre>
+
+              {step.htmlPreview && (
+                <>
+                  <p className="lesson-caption">完成イメージ（liが増えるとこうなる）</p>
+                  <pre className="lesson-code">
+                    <code>{step.htmlPreview}</code>
+                  </pre>
+                </>
+              )}
             </div>
           )}
 
@@ -74,6 +83,25 @@ export default function AppliedLessonA() {
         <p className="applied-step-label">類題</p>
         <h2 className="applied-step-title">{challenge.title}</h2>
         <p className="applied-step-explanation">{challenge.description}</p>
+
+        {challenge.html && (
+          <div className="applied-step-html">
+            <p className="lesson-caption">使用するHTML</p>
+            <pre className="lesson-code">
+              <code>{challenge.html}</code>
+            </pre>
+
+            {challenge.htmlPreview && (
+              <>
+                <p className="lesson-caption">完成イメージ（liが増えるとこうなる）</p>
+                <pre className="lesson-code">
+                  <code>{challenge.htmlPreview}</code>
+                </pre>
+              </>
+            )}
+          </div>
+        )}
+
         <DomPlayground html={challenge.html} initialCode={challenge.code} />
       </section>
 

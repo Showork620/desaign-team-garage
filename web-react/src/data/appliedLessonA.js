@@ -19,6 +19,11 @@ const APPLIED_LESSON_A = {
       explanation:
         "document.getElementById(...) でHTML上の入れ物（<ul>）を取得し、document.createElement(\"li\") で新しい要素を作ります。作っただけではまだ画面には何も表示されず、list.appendChild(li) で追加して、はじめて実習エリアに反映されます。",
       html: `<ul id="student-list"></ul>`,
+      htmlPreview: `<ul id="student-list">
+  <li class="is-pass">田中：82点 → 合格</li>
+  <li>佐藤：45点</li>
+  <li class="is-pass">鈴木：60点 → 合格</li>
+</ul>`,
       code: `const list = document.getElementById("student-list");
 
 const li = document.createElement("li");
@@ -69,6 +74,11 @@ console.log(studentNames[1], studentScores[1]);`,
       explanation:
         "STEP1で1件だけ作った処理を、forで配列の数だけ繰り返します。studentNames.length の数だけループし、i番目の名前と点数を取り出してliに詰めていきます。",
       html: `<ul id="student-list"></ul>`,
+      htmlPreview: `<ul id="student-list">
+  <li>田中：82点</li>
+  <li>佐藤：45点</li>
+  <li>鈴木：60点</li>
+</ul>`,
       code: `const studentNames = ["田中", "佐藤", "鈴木"];
 const studentScores = [82, 45, 60];
 
@@ -92,6 +102,11 @@ for (let i = 0; i < studentNames.length; i++) {
       explanation:
         "forの中にif文を追加し、点数が60点以上かどうかで、表示するテキストとCSSクラス（is-pass）を出し分けます。STEP1で確認した「classListで見た目が変わる」しくみと、STEP3の「forで並べる」しくみを、ここでひとつにまとめます。",
       html: `<ul id="student-list"></ul>`,
+      htmlPreview: `<ul id="student-list">
+  <li class="is-pass">田中：82点 → 合格</li>
+  <li>佐藤：45点</li>
+  <li class="is-pass">鈴木：60点 → 合格</li>
+</ul>`,
       code: `const studentNames = ["田中", "佐藤", "鈴木"];
 const studentScores = [82, 45, 60];
 
@@ -123,6 +138,11 @@ for (let i = 0; i < studentNames.length; i++) {
     description:
       "同じ考え方で、別のお題を自分で書いてみましょう。名前の配列 memberNames と、出席回数の配列 attendanceCounts があります。8回以上出席していたら「皆勤賞」というラベルをつけた一覧を作ってください。STEP4までのコードをそのまま参考にして構いません。",
     html: `<ul id="attendance-list"></ul>`,
+    htmlPreview: `<ul id="attendance-list">
+  <li class="is-pass">山田：9回 → 皆勤賞</li>
+  <li>伊藤：5回</li>
+  <li class="is-pass">小林：8回 → 皆勤賞</li>
+</ul>`,
     code: `const memberNames = ["山田", "伊藤", "小林"];
 const attendanceCounts = [9, 5, 8];
 

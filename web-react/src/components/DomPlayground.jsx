@@ -46,14 +46,39 @@ function buildSrcDoc(html, code, shouldRun) {
         confirm,
         prompt
       );
+      send("html", document.getElementById("__stage__").innerHTML);
       send("done");
     } catch (error) {
+      send("html", document.getElementById("__stage__").innerHTML);
       send("error", error && error.message ? error.message : String(error));
     }
   </script>`
     : "";
 
-  return `<!doctype html><html><head><meta charset="utf-8"><style>${SANDBOX_STYLE}</style></head><body>${html}${script}</body></html>`;
+  return `<!doctype html><html><head><meta charset="utf-8"><style>${SANDBOX_STYLE}</style></head><body><div id="__stage__">${html}</div>${script}</body></html>`;
+}
+
+// innerHTMLはタグが詰まって返ってくるので、要素ごとに改行してざっくり読みやすくする。
+// ul > li 程度のシンプルな入れ子しか想定していない簡易整形。
+function formatHtml(html) {
+  const trimmed = html.trim();
+  if (!trimmed) return trimmed;
+
+  let depth = 0;
+  return trimmed
+    .replace(/>\s*</g, ">\n<")
+    .split("\n")
+    .map((line) => {
+      const isClosingTag = /^<\/[a-z]/i.test(line);
+      const isSelfContained = /^<([a-z][a-z0-9]*)\b[^>]*>.*<\/\1>$/i.test(line);
+      const isOpeningTag = /^<[a-z][^>]*[^/]>$/i.test(line) && !isSelfContained;
+
+      if (isClosingTag) depth = Math.max(depth - 1, 0);
+      const indented = "  ".repeat(depth) + line;
+      if (isOpeningTag) depth += 1;
+      return indented;
+    })
+    .join("\n");
 }
 
 export default function DomPlayground({ html, initialCode }) {
@@ -65,6 +90,8 @@ export default function DomPlayground({ html, initialCode }) {
   const [hasRun, setHasRun] = useState(false);
   const [status, setStatus] = useState("idle");
   const [logs, setLogs] = useState([]);
+  const [renderedHtml, setRenderedHtml] = useState(html);
+  const [viewMode, setViewMode] = useState("preview");
   const iframeRef = useRef(null);
   const logsRef = useRef([]);
   const timeoutRef = useRef(null);
@@ -78,6 +105,10 @@ export default function DomPlayground({ html, initialCode }) {
       if (type === "log") {
         logsRef.current = [...logsRef.current, value];
         setLogs(logsRef.current);
+        return;
+      }
+      if (type === "html") {
+        setRenderedHtml(value);
         return;
       }
 
@@ -120,6 +151,7 @@ export default function DomPlayground({ html, initialCode }) {
     setLogs([]);
     setStatus("idle");
     setHasRun(false);
+    setRenderedHtml(html);
     setRunId((id) => id + 1);
   };
 
@@ -155,15 +187,44 @@ export default function DomPlayground({ html, initialCode }) {
           </div>
         )}
 
-        <p className="dom-playground-caption">実習エリア（実際のHTML）</p>
+        <div className="dom-playground-preview-head">
+          <p className="dom-playground-caption">実習エリア（実際のHTML）</p>
+          <div className="dom-playground-view-toggle" role="tablist" aria-label="表示切り替え">
+            <button
+              type="button"
+              role="tab"
+              aria-selected={viewMode === "preview"}
+              className={viewMode === "preview" ? "is-active" : ""}
+              onClick={() => setViewMode("preview")}
+            >
+              見た目
+            </button>
+            <button
+              type="button"
+              role="tab"
+              aria-selected={viewMode === "html"}
+              className={viewMode === "html" ? "is-active" : ""}
+              onClick={() => setViewMode("html")}
+            >
+              HTMLコード
+            </button>
+          </div>
+        </div>
+
+        {/* タブ切り替えでiframeを消すと再マウント＝再実行されてしまうため、
+            両方を常にマウントしたままCSSで表示・非表示だけ切り替える。 */}
         <iframe
           key={runId}
           ref={iframeRef}
           className="dom-playground-frame"
+          hidden={viewMode !== "preview"}
           title="DOM実習エリア"
           sandbox="allow-scripts"
           srcDoc={buildSrcDoc(html, executedCode, hasRun)}
         />
+        <pre className="dom-playground-html" hidden={viewMode !== "html"}>
+          <code>{formatHtml(renderedHtml)}</code>
+        </pre>
       </div>
     </Block>
   );
