@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import CodePlayground from "../components/CodePlayground";
 import LessonContent from "../components/LessonContent";
+import StudentListDemo from "../components/StudentListDemo";
 import { findCategory } from "../data/roadmap";
 import { getLesson } from "../data/lessons";
 import { useProgress } from "../progress/progressContext";
@@ -60,7 +61,10 @@ export default function LessonItemPage() {
             lesson={lesson}
             playground={
               category.id === "javascript" && lesson ? (
-                <CodePlayground lesson={lesson} itemTitle={item.title} />
+                <>
+                  {item.id === "js-applied" && <StudentListDemo />}
+                  <CodePlayground lesson={lesson} itemTitle={item.title} />
+                </>
               ) : null
             }
           />

@@ -278,6 +278,99 @@ console.log(greet("しほ"));`,
       },
     ],
   },
+
+  "js-applied": {
+    what: "ここまでの変数・配列・IF・FORをひとつに組み合わせて、実際に画面（DOM）を書き換える応用編です。生徒の名前と点数の配列を先頭から1件ずつ確認し、60点以上なら「合格」ラベルをつけた一覧を、実際のHTML要素として作ります。",
+    why: "変数・配列・IF・FORは、1つずつ覚えても「で、結局何に使うの？」となりがちです。実際の画面は、この4つが組み合わさってできています。一覧表示＋条件によるラベルの出し分けは、管理画面やダッシュボードで最もよく出てくる形のひとつなので、ここで一度組み立て方を通しで見ておきます。",
+    code: {
+      caption: "配列を1件ずつ確認し、条件に応じてDOM要素を作る（HTMLに <ul id=\"student-list\"></ul> がある前提）",
+      body: `const students = [
+  { name: "田中", score: 82 },
+  { name: "佐藤", score: 45 },
+  { name: "鈴木", score: 60 },
+];
+
+const list = document.getElementById("student-list");
+
+for (let i = 0; i < students.length; i++) {
+  const student = students[i];
+  const li = document.createElement("li");
+
+  if (student.score >= 60) {
+    li.textContent = \`\${student.name}：\${student.score}点 → 合格\`;
+    li.classList.add("is-pass");
+  } else {
+    li.textContent = \`\${student.name}：\${student.score}点\`;
+  }
+
+  list.appendChild(li);
+}`,
+    },
+    practice: [
+      "下の「実際に動かして確認」で生徒の点数を書き換えて、合格ラベルが切り替わる様子を見る。",
+      "合格ラインを70点に変えると、一覧の表示がどう変わるか確かめる。",
+      "students配列に自分のデータをもう1件追加してみる（下のデモでも「生徒を追加」から試せます）。",
+      "for を forEach に書き換えても同じ結果になることを、下の「ブラウザで試す」で確かめる。",
+    ],
+    playgroundExamples: [
+      {
+        label: "合格リストをコンソールで確認",
+        code: `const students = [
+  { name: "田中", score: 82 },
+  { name: "佐藤", score: 45 },
+  { name: "鈴木", score: 60 },
+];
+
+for (let i = 0; i < students.length; i++) {
+  const student = students[i];
+
+  if (student.score >= 60) {
+    console.log(\`\${student.name}：\${student.score}点 → 合格\`);
+  } else {
+    console.log(\`\${student.name}：\${student.score}点\`);
+  }
+}`,
+      },
+      {
+        label: "合格者だけ数える",
+        code: `const students = [
+  { name: "田中", score: 82 },
+  { name: "佐藤", score: 45 },
+  { name: "鈴木", score: 60 },
+];
+
+let passCount = 0;
+
+for (let i = 0; i < students.length; i++) {
+  if (students[i].score >= 60) {
+    passCount = passCount + 1;
+  }
+}
+
+console.log(\`合格者：\${passCount}人\`);`,
+      },
+    ],
+    pitfalls: [
+      {
+        title: "「ブラウザで試す」では document は使えません",
+        body: "このエリアはJavaScriptのロジックだけを確認する場所なので、document.getElementByIdなどのDOM操作はエラーになります。DOM込みの動きは、下の「実際に動かして確認」で見てください。上のコードをそのまま自分のHTMLファイルに貼れば、同じように動きます。",
+      },
+      {
+        title: "一覧を作るときの型はいつも同じ",
+        body: "「配列をforで1件ずつ確認 → 条件に応じて要素を作る → appendChildで追加していく」という流れは、一覧・カード・テーブルなど『同じ形が並ぶUI』ならほぼすべてこの形になります。",
+      },
+    ],
+    links: [
+      {
+        label: "MDN — Document.createElement()",
+        url: "https://developer.mozilla.org/ja/docs/Web/API/Document/createElement",
+      },
+      {
+        label: "MDN — Node.appendChild()",
+        url: "https://developer.mozilla.org/ja/docs/Web/API/Node/appendChild",
+      },
+    ],
+  },
 };
 
 export default javascriptLessons;
