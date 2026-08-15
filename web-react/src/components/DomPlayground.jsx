@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Block } from "./LessonContent";
+import CodeBlock from "./CodeBlock";
 
 const RUN_TIMEOUT = 1200;
 
@@ -165,12 +166,13 @@ export default function DomPlayground({ html, initialCode }) {
           </button>
         </div>
 
-        <textarea
+        <CodeBlock
           className="playground-editor"
-          value={code}
-          spellCheck="false"
-          onChange={(event) => setCode(event.target.value)}
-          aria-label="実習コード"
+          code={code}
+          language="javascript"
+          onChange={setCode}
+          minHeight="200px"
+          ariaLabel="実習コード"
         />
 
         <div className="playground-actions">
@@ -222,9 +224,13 @@ export default function DomPlayground({ html, initialCode }) {
           sandbox="allow-scripts"
           srcDoc={buildSrcDoc(html, executedCode, hasRun)}
         />
-        <pre className="dom-playground-html" hidden={viewMode !== "html"}>
-          <code>{formatHtml(renderedHtml)}</code>
-        </pre>
+        <CodeBlock
+          className="dom-playground-html"
+          code={formatHtml(renderedHtml)}
+          language="html"
+          height="200px"
+          hidden={viewMode !== "html"}
+        />
       </div>
     </Block>
   );

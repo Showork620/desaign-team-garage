@@ -445,21 +445,24 @@
   letter-spacing: 0.04em;
   color: var(--ink-soft) !important;
 }
-.lesson-code {
-  margin: 0;
-  padding: 24px 26px;
-  background: #0d0d0d;
-  color: #f4f4ef;
-  /* 横に長いコードだけ横スクロール。縦は hidden にしないと、
-     コードの上でマウスホイールが効かなくなる */
-  overflow-x: auto;
-  overflow-y: hidden;
+/* ---------- コードブロック（CodeMirrorによるシンタックスハイライト） ---------- */
+.code-block {
+  border: 1px solid var(--rule-soft);
+  overflow: hidden;
+}
+.code-block .cm-editor {
   font-size: 13px;
   line-height: 1.9;
-  tab-size: 2;
 }
-.lesson-code code {
+.code-block .cm-content {
+  padding: 20px 0;
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+.code-block .cm-line {
+  padding: 0 26px;
+}
+.code-block .cm-gutters {
+  display: none;
 }
 
 .lesson-practice {
@@ -565,20 +568,11 @@
   color: var(--ink);
 }
 .playground-editor {
-  display: block;
   width: calc(100% - 40px);
-  min-height: 280px;
   margin: 16px 20px 0;
-  padding: 18px;
-  border: 0;
-  border-radius: 0;
-  resize: vertical;
-  background: #0d0d0d;
-  color: #f4f4ef;
-  font: 13px/1.8 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  tab-size: 2;
+  border: 1px solid var(--rule-soft);
 }
-.playground-editor:focus {
+.playground-editor .cm-editor.cm-focused {
   outline: 2px solid var(--accent);
   outline-offset: 0;
 }
@@ -731,30 +725,16 @@
   width: calc(100% - 40px);
   height: 200px;
   margin: 0 20px 20px;
-  border: 1px solid var(--rule-soft);
-}
-/* [hidden]属性はUAスタイルのdisplay:noneで隠れる想定だが、上のブロックで
-   display を明示すると詳細度が同点になり後勝ちで上書きしてしまうため、
-   表示側だけ明示的にblockにする。 */
-.dom-playground-frame:not([hidden]),
-.dom-playground-html:not([hidden]) {
-  display: block;
 }
 .dom-playground-frame {
+  border: 1px solid var(--rule-soft);
   background: #f7f7ef;
 }
-.dom-playground-html {
-  padding: 16px;
-  overflow: auto;
-  background: #0d0d0d;
-  color: #f4f4ef;
-  font-size: 13px;
-  line-height: 1.8;
-  tab-size: 2;
-}
-.dom-playground-html code {
-  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  white-space: pre;
+/* iframeはUAスタイルでdisplay:inlineなので、hidden解除時はblockを明示する。
+   .dom-playground-html は div（code-block）なのでUA既定のblockのままでよく、
+   displayを明示しないため [hidden] のdisplay:noneと衝突しない。 */
+.dom-playground-frame:not([hidden]) {
+  display: block;
 }
 
 /* ---------- 前後カテゴリ ---------- */
@@ -886,8 +866,9 @@
   }
   .playground-editor {
     width: calc(100% - 28px);
-    min-height: 240px;
     margin: 14px 14px 0;
+  }
+  .code-block .cm-editor {
     font-size: 12px;
   }
   .playground-examples,

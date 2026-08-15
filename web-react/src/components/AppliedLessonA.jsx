@@ -1,4 +1,5 @@
 import { Block } from "./LessonContent";
+import CodeBlock from "./CodeBlock";
 import CodePlayground from "./CodePlayground";
 import DomPlayground from "./DomPlayground";
 import APPLIED_LESSON_A from "../data/appliedLessonA";
@@ -25,16 +26,12 @@ export default function AppliedLessonA() {
           {step.html && (
             <div className="applied-step-html">
               <p className="lesson-caption">使用するHTML</p>
-              <pre className="lesson-code">
-                <code>{step.html}</code>
-              </pre>
+              <CodeBlock code={step.html} language="html" />
 
               {step.htmlPreview && (
                 <>
                   <p className="lesson-caption">完成イメージ（liが増えるとこうなる）</p>
-                  <pre className="lesson-code">
-                    <code>{step.htmlPreview}</code>
-                  </pre>
+                  <CodeBlock code={step.htmlPreview} language="html" />
                 </>
               )}
             </div>
@@ -87,16 +84,12 @@ export default function AppliedLessonA() {
         {challenge.html && (
           <div className="applied-step-html">
             <p className="lesson-caption">使用するHTML</p>
-            <pre className="lesson-code">
-              <code>{challenge.html}</code>
-            </pre>
+            <CodeBlock code={challenge.html} language="html" />
 
             {challenge.htmlPreview && (
               <>
                 <p className="lesson-caption">完成イメージ（liが増えるとこうなる）</p>
-                <pre className="lesson-code">
-                  <code>{challenge.htmlPreview}</code>
-                </pre>
+                <CodeBlock code={challenge.htmlPreview} language="html" />
               </>
             )}
           </div>
