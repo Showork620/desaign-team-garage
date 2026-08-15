@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
+import AppliedLessonA from "../components/AppliedLessonA";
 import CodePlayground from "../components/CodePlayground";
 import LessonContent from "../components/LessonContent";
-import StudentListDemo from "../components/StudentListDemo";
 import { findCategory } from "../data/roadmap";
 import { getLesson } from "../data/lessons";
 import { useProgress } from "../progress/progressContext";
@@ -53,21 +53,26 @@ export default function LessonItemPage() {
                 <span className="lesson-num">{category.num}</span>
                 <span className="lesson-en">{category.en}</span>
               </p>
-              <h1>{item.title}</h1>
+              <h1>{lesson?.heading ?? item.title}</h1>
             </div>
           </div>
 
-          <LessonContent
-            lesson={lesson}
-            playground={
-              category.id === "javascript" && lesson ? (
-                <>
-                  {item.id === "js-applied" && <StudentListDemo />}
-                  <CodePlayground lesson={lesson} itemTitle={item.title} />
-                </>
-              ) : null
-            }
-          />
+          {item.id === "js-applied" ? (
+            <AppliedLessonA />
+          ) : (
+            <LessonContent
+              lesson={lesson}
+              playground={
+                category.id === "javascript" && lesson ? (
+                  <CodePlayground
+                    initialCode={lesson.code?.body}
+                    examples={lesson.playgroundExamples}
+                    itemTitle={item.title}
+                  />
+                ) : null
+              }
+            />
+          )}
         </article>
 
         <nav className="lesson-nav" aria-label="トピック移動">

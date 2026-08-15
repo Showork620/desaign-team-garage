@@ -89,9 +89,8 @@ function runUserCode(code) {
   });
 }
 
-export default function CodePlayground({ lesson, itemTitle }) {
-  const initialCode = lesson?.code?.body ?? "";
-  const examples = useMemo(() => lesson?.playgroundExamples ?? [], [lesson]);
+export default function CodePlayground({ initialCode = "", examples: rawExamples, itemTitle }) {
+  const examples = useMemo(() => rawExamples ?? [], [rawExamples]);
   const [code, setCode] = useState(initialCode);
   const [result, setResult] = useState({ status: "idle", lines: ["実行すると結果がここに表示されます。"] });
   const [isRunning, setIsRunning] = useState(false);
