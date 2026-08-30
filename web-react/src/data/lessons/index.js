@@ -2,8 +2,10 @@
 // 新しいカテゴリを書き終えたら、ここに1行足すだけで特設ページに反映される。
 
 import javascript from "./javascript";
+import github from "./github";
 
 const LESSONS = {
+  github,
   javascript,
 };
 
