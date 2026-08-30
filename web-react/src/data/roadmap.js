@@ -30,6 +30,7 @@ export const ROADMAP = [
       { id: "js-if", title: "IF" },
       { id: "js-for", title: "FOR" },
       { id: "js-function", title: "関数" },
+      { id: "js-applied", title: "応用A" },
     ],
   },
   {

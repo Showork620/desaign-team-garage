@@ -445,21 +445,24 @@
   letter-spacing: 0.04em;
   color: var(--ink-soft) !important;
 }
-.lesson-code {
-  margin: 0;
-  padding: 24px 26px;
-  background: #0d0d0d;
-  color: #f4f4ef;
-  /* 横に長いコードだけ横スクロール。縦は hidden にしないと、
-     コードの上でマウスホイールが効かなくなる */
-  overflow-x: auto;
-  overflow-y: hidden;
+/* ---------- コードブロック（CodeMirrorによるシンタックスハイライト） ---------- */
+.code-block {
+  border: 1px solid var(--rule-soft);
+  overflow: hidden;
+}
+.code-block .cm-editor {
   font-size: 13px;
   line-height: 1.9;
-  tab-size: 2;
 }
-.lesson-code code {
+.code-block .cm-content {
+  padding: 20px 0;
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+.code-block .cm-line {
+  padding: 0 26px;
+}
+.code-block .cm-gutters {
+  display: none;
 }
 
 .lesson-practice {
@@ -565,20 +568,11 @@
   color: var(--ink);
 }
 .playground-editor {
-  display: block;
   width: calc(100% - 40px);
-  min-height: 280px;
   margin: 16px 20px 0;
-  padding: 18px;
-  border: 0;
-  border-radius: 0;
-  resize: vertical;
-  background: #0d0d0d;
-  color: #f4f4ef;
-  font: 13px/1.8 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  tab-size: 2;
+  border: 1px solid var(--rule-soft);
 }
-.playground-editor:focus {
+.playground-editor .cm-editor.cm-focused {
   outline: 2px solid var(--accent);
   outline-offset: 0;
 }
@@ -617,6 +611,130 @@
 }
 .playground-output pre:last-child {
   margin-bottom: 0;
+}
+
+/* ---------- 応用編：ステップ形式ハンズオン ---------- */
+.applied-step {
+  margin: 0 0 56px;
+  padding-top: 40px;
+  border-top: 1px solid var(--rule-soft);
+}
+.applied-step:first-child {
+  padding-top: 0;
+  border-top: 0;
+}
+.applied-step-label {
+  margin: 0 0 6px;
+  font: 700 11px var(--latin);
+  letter-spacing: 0.18em;
+  color: var(--ink-soft);
+}
+.applied-step-title {
+  margin: 0 0 16px;
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+.applied-step-explanation {
+  margin: 0 0 18px;
+  font-size: 15px;
+  line-height: 2;
+  color: #33332f;
+}
+.applied-step-html {
+  margin-bottom: 18px;
+}
+.applied-step-notes {
+  list-style: none;
+  margin: 0 0 22px;
+  padding: 0;
+}
+.applied-step-notes li {
+  position: relative;
+  margin-bottom: 10px;
+  padding-left: 20px;
+  font-size: 14px;
+  line-height: 1.9;
+  color: var(--ink-soft);
+}
+.applied-step-notes li::before {
+  content: "・";
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+}
+.applied-challenge {
+  padding: 28px;
+  background: rgba(10, 10, 10, 0.03);
+  border-top: 0;
+}
+
+/* ---------- 応用編：DOM実習プレイグラウンド ---------- */
+.dom-playground {
+  border: 1px solid var(--rule);
+  background: rgba(10, 10, 10, 0.04);
+}
+.dom-playground-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding: 18px 20px;
+  border-bottom: 1px solid var(--rule-soft);
+}
+.dom-playground-head p {
+  margin: 0;
+  font-size: 13px;
+  color: var(--ink-soft);
+}
+.dom-playground-preview-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin: 16px 20px 8px;
+}
+.dom-playground-caption {
+  margin: 0;
+  font: 500 12px var(--latin);
+  letter-spacing: 0.04em;
+  color: var(--ink-soft);
+}
+.dom-playground-view-toggle {
+  display: flex;
+  gap: 6px;
+}
+.dom-playground-view-toggle button {
+  padding: 6px 11px;
+  border: 1px solid var(--rule);
+  background: transparent;
+  color: var(--ink-soft);
+  font: 700 10px var(--latin);
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+.dom-playground-view-toggle button.is-active {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: #f4f4ef;
+}
+.dom-playground-frame,
+.dom-playground-html {
+  box-sizing: border-box;
+  width: calc(100% - 40px);
+  height: 200px;
+  margin: 0 20px 20px;
+}
+.dom-playground-frame {
+  border: 1px solid var(--rule-soft);
+  background: #f7f7ef;
+}
+/* iframeはUAスタイルでdisplay:inlineなので、hidden解除時はblockを明示する。
+   .dom-playground-html は div（code-block）なのでUA既定のblockのままでよく、
+   displayを明示しないため [hidden] のdisplay:noneと衝突しない。 */
+.dom-playground-frame:not([hidden]) {
+  display: block;
 }
 
 /* ---------- 前後カテゴリ ---------- */
@@ -748,8 +866,9 @@
   }
   .playground-editor {
     width: calc(100% - 28px);
-    min-height: 240px;
     margin: 14px 14px 0;
+  }
+  .code-block .cm-editor {
     font-size: 12px;
   }
   .playground-examples,

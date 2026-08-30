@@ -1,3 +1,5 @@
+import CodeBlock from "./CodeBlock";
+
 export default function LessonContent({ lesson, playground }) {
   if (!lesson) {
     return <p className="lesson-empty">解説はこれから書きます。</p>;
@@ -16,9 +18,7 @@ export default function LessonContent({ lesson, playground }) {
       {lesson.code && (
         <Block label="コードで見る">
           {lesson.code.caption && <p className="lesson-caption">{lesson.code.caption}</p>}
-          <pre className="lesson-code">
-            <code>{lesson.code.body}</code>
-          </pre>
+          <CodeBlock code={lesson.code.body} language="javascript" />
         </Block>
       )}
 

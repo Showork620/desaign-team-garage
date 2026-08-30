@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
 import { Block } from "./LessonContent";
+import CodeBlock from "./CodeBlock";
 
 const RUN_TIMEOUT = 1200;
 
@@ -89,9 +90,8 @@ function runUserCode(code) {
   });
 }
 
-export default function CodePlayground({ lesson, itemTitle }) {
-  const initialCode = lesson?.code?.body ?? "";
-  const examples = useMemo(() => lesson?.playgroundExamples ?? [], [lesson]);
+export default function CodePlayground({ initialCode = "", examples: rawExamples, itemTitle }) {
+  const examples = useMemo(() => rawExamples ?? [], [rawExamples]);
   const [code, setCode] = useState(initialCode);
   const [result, setResult] = useState({ status: "idle", lines: ["実行すると結果がここに表示されます。"] });
   const [isRunning, setIsRunning] = useState(false);
@@ -126,12 +126,13 @@ export default function CodePlayground({ lesson, itemTitle }) {
           </div>
         )}
 
-        <textarea
+        <CodeBlock
           className="playground-editor"
-          value={code}
-          spellCheck="false"
-          onChange={(event) => setCode(event.target.value)}
-          aria-label={`${itemTitle}の実習コード`}
+          code={code}
+          language="javascript"
+          onChange={setCode}
+          minHeight="220px"
+          ariaLabel={`${itemTitle}の実習コード`}
         />
 
         <div className="playground-actions">
