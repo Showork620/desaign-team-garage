@@ -9,7 +9,7 @@ export default function Hero() {
       <div className="hero-copy">
         <p className="eyebrow">LEARN × BUILD × RECORD</p>
         <h1 className="hero-title">
-          <span className="line line-1">AIと一緒に、</span>
+          <span className="line line-1">AIと共に、</span>
           <span className="line line-2">
             Webを<span className="outline">自分の手で</span>
           </span>
